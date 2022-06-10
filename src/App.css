@@ -1,4 +1,23 @@
-.App {
-  text-align: center;
-  margin: 1em 5em;
+html, body, #root, .wrapper {
+    overflow: hidden;
+    height: 100%;
+}
+
+.wrapper {
+    background-color: #e1e1e1;
+}
+
+.content {
+    height: 100%;
+    overflow: auto;
+    background-color: white;
+    margin: 0em 2em;
+    padding: 1em;
+}
+
+@media screen and (max-width: 600px) {
+    .content {
+        margin: 0 2px;
+        padding: 0.5em;
+    }
 }

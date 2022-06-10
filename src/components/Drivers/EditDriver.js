@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 const endpoint = 'http://localhost:3001/api/driver';
 
-const AddDriver = () => {
+const EditDriver = () => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -41,9 +41,10 @@ const AddDriver = () => {
     navigate('/');
   }
   return (
-    <div className='mt-4'>
-      <h3> Edit Driver</h3>
+    <div className='mt-2'>
+      <Link to="/driver/list" className='btn btn-dark mt-2 mb-2'><i className="bi bi-arrow-left"></i></Link>
       <div className='container'>
+        <h3> Edit Driver</h3>
         <form onSubmit={submitForm}>
           {/* First Name */}
           <div className='mb-3'>
@@ -61,11 +62,11 @@ const AddDriver = () => {
             <input value={birthDate} onChange={(e) => setbirthDate(e.target.value)} name="birthDate" type="date" className='form-control' />
           </div>
 
-          <button type="submit" className='btn btn-primary'>Edit Driver</button>
+          <button type="submit" className='btn btn-dark'>Edit Driver</button>
         </form>
       </div>
     </div>
   )
 }
 
-export default AddDriver
+export default EditDriver
