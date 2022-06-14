@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import './Drivers.css'
+import apiClient from '../../services/apiClient'
 
 const ListDrivers = () => {
-
-  const endpoint = 'http://localhost:3001/api';
 
   const [drivers, setDrivers] = useState([]);
   useEffect(() => {
@@ -13,12 +11,12 @@ const ListDrivers = () => {
   }, []);
 
   const getDrivers = async () => {
-    const response = await axios.get(`${endpoint}/driver`);
+    const response = await apiClient.get('/api/driver');
     setDrivers(response.data);
   }
 
   const deleteDriver = async (id) => {
-    await axios.delete(`${endpoint}/driver/${id}`);
+    await apiClient.delete(`/api/driver/${id}`);
     getDrivers();
   }
 

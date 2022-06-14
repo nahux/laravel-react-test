@@ -6,22 +6,24 @@ import ListDrivers from "./components/Drivers/ListDrivers";
 import AddDriver from "./components/Drivers/AddDriver";
 import EditDriver from "./components/Drivers/EditDriver";
 import Navbar from "./components/Common/Navbar";
+import Login from "./components/Home/Login";
 
 function App() {
   return (
     <div className="wrapper">
       <BrowserRouter>
-        <Navbar />
         <div className="content">
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/driver/list" element={<ListDrivers />} />
             <Route path="/driver/add" element={<AddDriver />} />
             <Route path="/driver/edit/:id" element={<EditDriver />} />
           </Routes>
         </div>
-      </BrowserRouter>
-    </div>
+      </BrowserRouter >
+    </div >
   );
 }
 
