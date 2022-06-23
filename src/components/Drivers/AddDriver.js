@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import apiClient from '../../services/apiClient';
 
-const endpoint = '/api/driver';
+const endpoint = 'http://localhost:3001/api/driver';
 
 const AddDriver = () => {
 
@@ -14,7 +14,7 @@ const AddDriver = () => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    await apiClient.post(endpoint, {
+    await axios.post(endpoint, {
       first_name: firstName,
       last_name: lastName,
       birth_date: birthDate

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import apiClient from '../../services/apiClient';
 
+const endpoint = 'http://localhost:3001/api/driver';
 
 const EditDriver = () => {
 
@@ -13,7 +14,7 @@ const EditDriver = () => {
   const navigate = useNavigate();
 
   const getDriver = async (driverId) => {
-    const response = await apiClient.get(`/api/driver/${driverId}`).catch(function (error) {
+    const response = await axios.get(`${endpoint}/${driverId}`).catch(function (error) {
       console.log(error.toJSON());
       navigate('/');
     });
@@ -32,7 +33,7 @@ const EditDriver = () => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    await apiClient.put(`/api/driver/${id}`, {
+    await axios.put(`${endpoint}/${id}`, {
       first_name: firstName,
       last_name: lastName,
       birth_date: birthDate
