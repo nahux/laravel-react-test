@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import './Drivers.css'
 import { DriverContext } from './DriverContext';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import './Drivers.css'
 
 const ListDrivers = () => {
   const [drivers, setDrivers] = useContext(DriverContext);
@@ -36,7 +38,20 @@ const ListDrivers = () => {
                 <td>{driver.dateOfBirth}</td>
                 <td>
                   <Link to={`/driver/edit/${driver.driverId}`} className='action-button me-2'><i className="bi bi-pencil"></i></Link>
-                  <button onClick={() => deleteDriver(driver.driverId)} className='action-button'><i className="bi bi-trash"></i></button>
+                  <Popup
+                    trigger={<button className='action-button'><i className="bi bi-trash"></i></button>}
+                    position="right center"
+                    modal
+                  >
+                    {close => (
+                      <div className='content'>
+                        <p>Are you sure you want to delete the driver {driver.givenName} {driver.familyName}?</p>
+                        <button onClick={() => deleteDriver(driver.driverId)} className='btn btn-dark'>Yes</button>
+                        <button onClick={() => close()} className='btn btn-dark ms-2'>Cancel</button>
+                      </div>
+                    )}
+                  </Popup>
+
                 </td>
               </tr>
             )) : null}
