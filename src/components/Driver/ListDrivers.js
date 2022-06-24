@@ -18,29 +18,31 @@ const ListDrivers = () => {
       <Link to="/driver/add" className='btn btn-dark mt-2 mb-2'>+ Driver</Link>
 
       {/* Drivers Table */}
-      <table className='table table-striped'>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Birth Date</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {drivers ? drivers.map((driver) => (
-            <tr key={driver.driverId}>
-              <td>{driver.givenName}</td>
-              <td>{driver.familyName}</td>
-              <td>{driver.dateOfBirth}</td>
-              <td>
-                <Link to={`/driver/edit/${driver.driverId}`} className='action-button me-2'><i className="bi bi-pencil"></i></Link>
-                <button onClick={() => deleteDriver(driver.driverId)} className='action-button'><i className="bi bi-trash"></i></button>
-              </td>
+      <div className='driver-list'>
+        <table className='table table-striped'>
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Birth Date</th>
+              <th></th>
             </tr>
-          )) : null}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {drivers ? drivers.map((driver) => (
+              <tr key={driver.driverId}>
+                <td>{driver.givenName}</td>
+                <td>{driver.familyName}</td>
+                <td>{driver.dateOfBirth}</td>
+                <td>
+                  <Link to={`/driver/edit/${driver.driverId}`} className='action-button me-2'><i className="bi bi-pencil"></i></Link>
+                  <button onClick={() => deleteDriver(driver.driverId)} className='action-button'><i className="bi bi-trash"></i></button>
+                </td>
+              </tr>
+            )) : null}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

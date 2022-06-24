@@ -1,18 +1,20 @@
 html, body, #root, .wrapper {
     overflow: hidden;
-    height: 100%;
 }
 
 .wrapper {
+    display: flex;
+    flex-direction: column;
     background-color: #e1e1e1;
+    min-height: 100vh;
 }
 
 .content {
-    height: 92%;
     overflow: auto;
     background-color: white;
     margin: 0em 2em;
     padding: 1em;
+    flex-grow: 1;
 }
 
 /* Scroll */

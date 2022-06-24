@@ -1,0 +1,54 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-link-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.home-box-link {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    margin: 1em;
+    text-align: center;
+    line-height: 5em;
+    font-size: 2em;
+    border-radius: 0.2em;
+}
+
+.home-box-link:hover:not(.disabled) {
+    background-color: #1d1d1d;
+    box-shadow: 0.2em 0.2em #c7c7c7;
+}
+
+a.home-box-link:link, a.home-box-link:visited {
+    color: white;
+    text-decoration: none;
+}
+
+a.disabled {
+    color: currentColor;
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.home-content {
+    text-align: center;
+    flex-direction: row;
+    margin: 2em;
+}
+
+.flex-g-1 {
+    flex-grow: 1;
+}
+
+.flex-g-2 {
+    flex-grow: 2;
+}
+
+.flex-g-3 {
+    flex-grow: 3;
+}

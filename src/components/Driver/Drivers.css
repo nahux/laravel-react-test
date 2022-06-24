@@ -7,3 +7,8 @@
 .action-button:hover {
     color: #838383;
 }
+
+.driver-list {
+    height: 85vh;
+    overflow-y: scroll;
+}
