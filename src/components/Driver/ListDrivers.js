@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import './Drivers.css'
 import { DriverContext } from './DriverContext';
 
 const ListDrivers = () => {
   const [drivers, setDrivers] = useContext(DriverContext);
-  console.log(drivers);
 
   const deleteDriver = async (id) => {
     let newDrivers = drivers.filter(function (driver) {
