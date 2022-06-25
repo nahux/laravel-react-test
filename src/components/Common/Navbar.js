@@ -13,6 +13,7 @@ const Navbar = () => {
           <div className="navbar-nav">
             <NavLink className={matchPath("/", pathname) ? 'nav-link active' : 'nav-link'} to="/">Home</NavLink>
             <NavLink className={matchPath("/driver/*", pathname) ? 'nav-link active' : 'nav-link'} to="/driver/list">Drivers</NavLink>
+            <NavLink className={matchPath("/auth/signup", pathname) ? 'nav-link active' : 'nav-link'} to="/auth/signup">SignUp</NavLink>
           </div>
         </div>
       </div>

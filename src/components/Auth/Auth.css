@@ -1,0 +1,12 @@
+.login-container {
+    min-height: 92vh;
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.login-card {
+    min-width: 35vw !important;
+    max-width: 90vw !important;
+    height: fit-content;
+}
