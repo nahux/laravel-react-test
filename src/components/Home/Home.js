@@ -26,7 +26,7 @@ const Home = () => {
       </div>
       <div className='home-content'>
         <p>This is a sample app to showcase a basic React application for learning porpouses</p>
-        <p>Do you have an account? <Link to="/auth/login/">Login</Link></p>
+        {!currentUser && <p>Do you have an account? <Link to="/auth/login/">Login</Link></p>}
       </div>
     </div>
   )
