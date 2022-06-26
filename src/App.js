@@ -10,6 +10,8 @@ import { DriversProvider } from "./components/Driver/DriverContext";
 import SignUp from "./components/Auth/SignUp";
 import AuthProvider from "./components/Auth/AuthContext";
 import Login from "./components/Auth/Login";
+import ProtectedRoute from "./components/Common/ProtectedRoute";
+import ForgotPassword from "./components/Auth/ForgotPassword";
 
 
 function App() {
@@ -24,9 +26,31 @@ function App() {
                 <Route exact path="/" element={<Home />} />
                 <Route path="/auth/signup" element={<SignUp />} />
                 <Route path="/auth/login" element={<Login />} />
-                <Route path="/driver/list" element={<ListDrivers />} />
-                <Route path="/driver/add" element={<AddDriver />} />
-                <Route path="/driver/edit/:id" element={<EditDriver />} />
+                <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+                <Route
+                  path="/driver/list"
+                  element={
+                    <ProtectedRoute>
+                      <ListDrivers />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/driver/add"
+                  element={
+                    <ProtectedRoute>
+                      <AddDriver />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/driver/edit/:id"
+                  element={
+                    <ProtectedRoute>
+                      <EditDriver />
+                    </ProtectedRoute>
+                  }
+                />
               </Routes>
             </DriversProvider>
           </div>

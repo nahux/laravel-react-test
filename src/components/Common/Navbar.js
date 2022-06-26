@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
             <NavLink className={matchPath("/", pathname) ? 'nav-link active' : 'nav-link'} to="/">Home</NavLink>
-            <NavLink className={matchPath("/driver/*", pathname) ? 'nav-link active' : 'nav-link'} to="/driver/list">Drivers</NavLink>
+            {currentUser && <NavLink className={matchPath("/driver/*", pathname) ? 'nav-link active' : 'nav-link'} to="/driver/list">Drivers</NavLink>}
           </div>
         </div>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
