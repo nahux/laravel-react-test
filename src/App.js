@@ -6,7 +6,6 @@ import ListDrivers from "./components/Driver/ListDrivers";
 import AddDriver from "./components/Driver/AddDriver";
 import EditDriver from "./components/Driver/EditDriver";
 import Navbar from "./components/Common/Navbar";
-import { DriversProvider } from "./components/Driver/DriverContext";
 import SignUp from "./components/Auth/SignUp";
 import AuthProvider from "./components/Auth/AuthContext";
 import Login from "./components/Auth/Login";
@@ -21,38 +20,36 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <div className="content">
-            <DriversProvider>
-              <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route path="/auth/signup" element={<SignUp />} />
-                <Route path="/auth/login" element={<Login />} />
-                <Route path="/auth/forgot-password" element={<ForgotPassword />} />
-                <Route
-                  path="/driver/list"
-                  element={
-                    <ProtectedRoute>
-                      <ListDrivers />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/driver/add"
-                  element={
-                    <ProtectedRoute>
-                      <AddDriver />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/driver/edit/:id"
-                  element={
-                    <ProtectedRoute>
-                      <EditDriver />
-                    </ProtectedRoute>
-                  }
-                />
-              </Routes>
-            </DriversProvider>
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route path="/auth/signup" element={<SignUp />} />
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+              <Route
+                path="/driver/list"
+                element={
+                  <ProtectedRoute>
+                    <ListDrivers />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/driver/add"
+                element={
+                  <ProtectedRoute>
+                    <AddDriver />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/driver/edit/:id"
+                element={
+                  <ProtectedRoute>
+                    <EditDriver />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
           </div>
         </BrowserRouter>
       </AuthProvider>
