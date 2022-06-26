@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Popup from 'reactjs-popup';
 import { db } from '../../firebase';
-import { collection, query, getDocs, orderBy, coll } from "firebase/firestore";
+import { collection, query, getDocs, orderBy, coll, deleteDoc, doc } from "firebase/firestore";
 import 'reactjs-popup/dist/index.css';
 import './Drivers.css'
 import Loading from '../Common/Loading';
@@ -10,36 +10,42 @@ import Loading from '../Common/Loading';
 const ListDrivers = () => {
   const [driverList, setDriverList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const driversRef = collection(db, "driver");
 
-  useEffect(() => {
-    const getDriversData = async () => {
+  const getDriversData = async () => {
+    setError('');
+    try {
       const dbDrivers = [];
-      const driversRef = collection(db, "driver");
       const querySnapshot = await getDocs(query(driversRef, orderBy('familyName')));
       querySnapshot.forEach((doc) => {
         let driver = doc.data();
-        driver.dateOfBirthFormatted = new Date(driver.dateOfBirth.seconds * 1000 + driver.dateOfBirth.nanoseconds/1000000).toLocaleDateString()
+        driver.dateOfBirthFormatted = new Date(driver.dateOfBirth.seconds * 1000 + driver.dateOfBirth.nanoseconds / 1000000).toLocaleDateString()
         dbDrivers.push(driver);
       });
       setDriverList(dbDrivers);
-      setLoading(false);
+    } catch (responseError) {
+      setError('Failed to get drivers: ' + responseError);
     }
+    setLoading(false);
+  }
 
+  useEffect(() => {
     getDriversData();
-  }, [loading])
+  }, [])
 
 
   const deleteDriver = async (id) => {
-    // let newDrivers = drivers.filter(function (driver) {
-    //   return driver.driverId !== id;
-    // });
-    // setDrivers(newDrivers);
+    await deleteDoc(doc(db, "driver", id.toString()));
+    setLoading(true);
+    getDriversData();
   }
 
   return (
     <div className='mt-2'>
       <Link to="/driver/add" className='btn btn-dark mt-2 mb-2'>+ Driver</Link>
 
+      {error ? (<div className='alert alert-danger'> {error} </div>) : null}
       {/* Drivers Table */}
       <div className='driver-list'>
         <table className='table table-striped'>
