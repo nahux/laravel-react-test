@@ -1,31 +1,28 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom';
 import { useAuth } from './AuthContext'
 import './Auth.css'
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
-  const { signUp } = useAuth();
+export default function Login() {
+  const { login } = useAuth();
 
   const emailRef = useRef();
   const passwordRef = useRef();
-  const passwordConfirmationRef = useRef();
 
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (passwordRef.current.value !== passwordConfirmationRef.current.value) {
-      return setError('The confirmation password does not match the password');
-    }
-
     try {
       setError('');
       setLoading(true);
-      await signUp(emailRef.current.value, passwordRef.current.value)
-    } catch (signUpError) {
-      setError('Failed to create an account: ' + signUpError);
+      await login(emailRef.current.value, passwordRef.current.value);
+      navigate('/');
+    } catch (loginError) {
+      setError('Failed to login: ' + loginError);
     }
 
     setLoading(false);
@@ -35,7 +32,7 @@ export default function SignUp() {
     <div className='login-container container'>
       <div className='login-card card'>
         <div className='card-body flex-none'>
-          <h1 className='text-center card-title'>Sign Up</h1>
+          <h1 className='text-center card-title'>Login</h1>
           {error ? (<div className='alert alert-danger'> {error} </div>) : null}
           <form onSubmit={handleSubmit} >
             <div className='form-group'>
@@ -46,14 +43,10 @@ export default function SignUp() {
               <label htmlFor="userPassword">Password</label>
               <input className='form-control' ref={passwordRef} type="password" name="password" id="userPassword" />
             </div>
-            <div className='form-group'>
-              <label htmlFor="userPassword">Confirm Password</label>
-              <input className='form-control' ref={passwordConfirmationRef} type="password" name="passwordConfirmation" id="userPasswordConfirmation" />
-            </div>
-            <button className='btn btn-primary mt-2' type="submit" disabled={loading}>Sign Up</button>
+            <button className='btn btn-primary mt-2' type="submit" disabled={loading}>Login</button>
           </form>
           <div className='w-100 text-center mb-2'>
-            Do you have an account? <Link to="/auth/login/">Login</Link>
+            If you want to create an account <Link to="/auth/signup/">Sign up here</Link>
           </div>
         </div>
       </div>
