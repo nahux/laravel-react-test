@@ -13,14 +13,9 @@ const Home = () => {
           Home
         </NavLink>
         {currentUser && (
-          <React.Fragment>
-            <NavLink to="/driver/list" className='home-box-link flex-g-2'>
-              Drivers
-            </NavLink>
-            <NavLink to="#" className='home-box-link flex-g-3 disabled'>
-              Teams
-            </NavLink>
-          </React.Fragment>
+          <NavLink to="/driver/list" className='home-box-link flex-g-2'>
+            Drivers
+          </NavLink>
         )
         }
       </div>
