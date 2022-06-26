@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react'
+import { doc, setDoc } from 'firebase/firestore';
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { DriverContext } from './DriverContext';
+import { db } from '../../firebase';
 
 const AddDriver = () => {
 
-  const [drivers, setDrivers] = useContext(DriverContext);
   const [givenName, setGivenName] = useState('');
   const [familyName, setFamilyName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
@@ -14,14 +14,13 @@ const AddDriver = () => {
   const submitForm = async (e) => {
     e.preventDefault();
     const newDriver = {
-      driverId: givenName + '_' + familyName,
+      driverId: givenName.charAt(0) + familyName.charAt(0) + new Date().getTime().toString(),
       givenName: givenName,
       familyName: familyName,
       dateOfBirth: dateOfBirth
     };
-    let newDrivers = [...drivers];
-    newDrivers.push(newDriver);
-    await setDrivers(newDrivers);
+    // Add a new document in collection "cities"
+    await setDoc(doc(db, "driver", newDriver.driverId), newDriver);
     navigate('/driver/list');
   }
   return (

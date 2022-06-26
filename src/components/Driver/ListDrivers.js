@@ -20,7 +20,6 @@ const ListDrivers = () => {
       const querySnapshot = await getDocs(query(driversRef, orderBy('familyName')));
       querySnapshot.forEach((doc) => {
         let driver = doc.data();
-        driver.dateOfBirthFormatted = new Date(driver.dateOfBirth.seconds * 1000 + driver.dateOfBirth.nanoseconds / 1000000).toLocaleDateString()
         dbDrivers.push(driver);
       });
       setDriverList(dbDrivers);
@@ -62,7 +61,7 @@ const ListDrivers = () => {
               <tr key={driver.driverId}>
                 <td>{driver.givenName}</td>
                 <td>{driver.familyName}</td>
-                <td>{driver.dateOfBirthFormatted}</td>
+                <td>{driver.dateOfBirth}</td>
                 <td>
                   <Link to={`/driver/edit/${driver.driverId}`} className='action-button me-2'><i className="bi bi-pencil"></i></Link>
                   <Popup
