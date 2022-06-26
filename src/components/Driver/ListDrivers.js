@@ -1,18 +1,39 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { DriverContext } from './DriverContext';
 import Popup from 'reactjs-popup';
+import { db } from '../../firebase';
+import { collection, query, getDocs, orderBy, coll } from "firebase/firestore";
 import 'reactjs-popup/dist/index.css';
 import './Drivers.css'
+import Loading from '../Common/Loading';
 
 const ListDrivers = () => {
-  const [drivers, setDrivers] = useContext(DriverContext);
+  const [driverList, setDriverList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getDriversData = async () => {
+      const dbDrivers = [];
+      const driversRef = collection(db, "driver");
+      const querySnapshot = await getDocs(query(driversRef, orderBy('familyName')));
+      querySnapshot.forEach((doc) => {
+        let driver = doc.data();
+        driver.dateOfBirthFormatted = new Date(driver.dateOfBirth.seconds * 1000 + driver.dateOfBirth.nanoseconds/1000000).toLocaleDateString()
+        dbDrivers.push(driver);
+      });
+      setDriverList(dbDrivers);
+      setLoading(false);
+    }
+
+    getDriversData();
+  }, [loading])
+
 
   const deleteDriver = async (id) => {
-    let newDrivers = drivers.filter(function (driver) {
-      return driver.driverId !== id;
-    });
-    setDrivers(newDrivers);
+    // let newDrivers = drivers.filter(function (driver) {
+    //   return driver.driverId !== id;
+    // });
+    // setDrivers(newDrivers);
   }
 
   return (
@@ -31,11 +52,11 @@ const ListDrivers = () => {
             </tr>
           </thead>
           <tbody>
-            {drivers ? drivers.map((driver) => (
+            {(!loading && driverList) ? driverList.map((driver) => (
               <tr key={driver.driverId}>
                 <td>{driver.givenName}</td>
                 <td>{driver.familyName}</td>
-                <td>{driver.dateOfBirth}</td>
+                <td>{driver.dateOfBirthFormatted}</td>
                 <td>
                   <Link to={`/driver/edit/${driver.driverId}`} className='action-button me-2'><i className="bi bi-pencil"></i></Link>
                   <Popup
@@ -57,6 +78,7 @@ const ListDrivers = () => {
             )) : null}
           </tbody>
         </table>
+        {loading && <Loading />}
       </div>
     </div>
   )
